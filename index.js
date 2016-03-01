@@ -39,7 +39,7 @@
 			return elem;
 		};
 
-		var start = function() {
+		var start = function(val) {
 			if (timeOut) {
 				clearInterval(timeOut);
 			}
