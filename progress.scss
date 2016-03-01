@@ -1,0 +1,29 @@
+#loadingbar{
+top: 0;
+width: 1%;
+height: 5px;
+background: #b91f1f;
+-moz-border-radius: 1px;
+-webkit-border-radius: 1px;
+border-radius: 1px;
+    -moz-transition: all 500ms ease-in-out;
+    -ms-transition: all 500ms ease-in-out;
+    -o-transition: all 500ms ease-in-out;
+    -webkit-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+text-align: right;
+font-family: Arial;
+color : #fff;
+font-size: 13px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+    padding-right: 10px;
+	 overflow: hidden;
+	  opacity: 1;
+    	}
+#loadingbar.closed
+	{
+	height: 0px! important;
+	opacity: 0;
+}

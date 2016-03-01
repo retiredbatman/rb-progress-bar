@@ -20,10 +20,10 @@
 			settings.steps = options.steps - 1 || 1; // specifies the number of steps or number of ajax calls 
 			settings.lastPosition = options.lastPosition || 75; // the last position where the progress bar will be stuck if ajax is not responding
 			id = id; //id where the progress bar will be appended
-			backgroundColor = options.backgroundColor || '#b91f1f';
+			backgroundColor = options.backgroundColor || '#EA4C53';
 			position = options.position || 'fixed';
-			height = options.height || '20px';
-			text = options.text || 'Searching for buses';
+			height = options.height || '2px';
+			text = options.text || null
 			color = options.color || '#fff';
 		};
 
@@ -31,11 +31,13 @@
 			var elem = document.createElement('div');
 			elem.id = 'loadingbar';
 			//elem.className = 'slider';
-			var textSpan = document.createElement('span');
-			textSpan.id = 'loadingText';
-			var text = document.createTextNode(this.text);
-			textSpan.appendChild(text);
-			elem.appendChild(textSpan);
+			if (text) {
+				var text = document.createTextNode(text);
+				textSpan.appendChild(text);
+				elem.appendChild(textSpan);
+				var textSpan = document.createElement('span');
+				textSpan.id = 'loadingText';
+			}
 			return elem;
 		};
 
@@ -49,11 +51,11 @@
 				settings.remaining = settings.lastPosition - settings.initialStart;
 				settings.perStepCount = parseInt((settings.remaining / settings.steps), 10);
 				var loader = template();
-				loader.style.height = this.height;
-				loader.style.lineHeight = this.height;
-				loader.style.background = this.backgroundColor;
+				loader.style.height = height;
+				loader.style.lineHeight = height;
+				loader.style.background = backgroundColor;
+				loader.style.position = position;
 				if (document.getElementById(id)) {
-					loader.style.position = position;
 					document.getElementById(id).appendChild(loader);
 				} else {
 					document.getElementsByTagName('body')[0].appendChild(loader);
@@ -62,7 +64,7 @@
 				set(val);
 			}
 		};
-		var set = function() {
+		var set = function(val) {
 			if (timeOut) {
 				clearInterval(timeOut);
 			}
@@ -71,11 +73,11 @@
 					settings.status = val;
 					document.getElementById('loadingbar').style.width = val + '%';
 
-					if (val <= 100) {
-						this.inc();
+					if (val <= settings.lastPosition) {
+						inc();
 					}
 				} else {
-					this.done();
+					done();
 				}
 			}
 		};
@@ -96,11 +98,20 @@
 		var inc = function() {
 			var statusNo = parseInt(settings.status, 10);
 			var nextStatus = statusNo + settings.perStepCount;
+			var incCount = 0;
 			timeOut = setInterval(function() {
-				if (statusNo < nextStatus && statusNo < settings.lastPosition) {
-					statusNo = statusNo + 1;
+				// if (statusNo < nextStatus && statusNo < settings.lastPosition) {
+				// 	statusNo = statusNo + 1;
 
-					settings.status = parseInt(statusNo, 10);
+				// 	settings.status = parseInt(statusNo, 10);
+
+				// 	document.getElementById('loadingbar').style.width = statusNo + '%';
+				// }
+
+				if (statusNo < settings.lastPosition) {
+					incCount = Math.random() * 3;
+					statusNo = statusNo + parseInt(incCount, 10);
+					settings.status = statusNo;
 
 					document.getElementById('loadingbar').style.width = statusNo + '%';
 				}
