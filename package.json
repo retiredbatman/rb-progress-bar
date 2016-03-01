@@ -10,6 +10,10 @@
     "progressbar",
     "javascript"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sudiproy89/rb-progress-bar.git"
+  },
   "author": "Sudip Roy",
   "license": "MIT"
 }
