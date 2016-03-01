@@ -1,6 +1,6 @@
 {
   "name": "rb-progress-bar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a youtube type progress loader with an extra option to show some text",
   "main": "index.js",
   "scripts": {
