@@ -50,6 +50,10 @@
 				settings.initialStart = val;
 				settings.remaining = settings.lastPosition - settings.initialStart;
 				settings.perStepCount = parseInt((settings.remaining / settings.steps), 10);
+				if (document.getElementById('loadingbar')) {
+					var loadingElem = document.getElementById('loadingbar');
+					loadingElem.parentNode.removeChild(loadingElem.parentNode.querySelector('#loadingbar'));
+				}
 				var loader = template();
 				loader.style.height = height;
 				loader.style.lineHeight = height;
@@ -90,7 +94,7 @@
 			var timeOutDone = setTimeout(function() {
 				document.getElementById('loadingbar').className += ' closed';
 				clearTimeout(timeOutDone);
-			}, 1500);
+			}, 500);
 			settings.status = 0;
 			settings.started = false;
 		};
@@ -109,8 +113,13 @@
 				// }
 
 				if (statusNo < settings.lastPosition) {
-					incCount = Math.random() * 3;
-					statusNo = statusNo + parseInt(incCount, 10);
+					if (settings.lastPosition - statusNo <= 5) {
+						incCount = Math.random();
+						statusNo = statusNo + incCount;
+					} else {
+						incCount = Math.random() * 3;
+						statusNo = statusNo + parseInt(incCount, 10);
+					}
 					settings.status = statusNo;
 
 					document.getElementById('loadingbar').style.width = statusNo + '%';
